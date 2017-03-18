@@ -1,0 +1,2 @@
+%{"nerves_ssdp_client": {:hex, :nerves_ssdp_client, "0.1.3", "b09dc7433b2536399885a5f0fcd1fb58283115b075f9485f86fa713547d404dc", [:mix], []},
+  "nerves_ssdp_server": {:hex, :nerves_ssdp_server, "0.2.2", "30988caf00a175285a238fff83feccb1f662b9ac4fcc68805b2e9cc01dcf1ad8", [:mix], []}}

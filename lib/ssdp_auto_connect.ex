@@ -1,18 +1,22 @@
 defmodule SsdpAutoConnect do
-  @moduledoc """
-  Documentation for SsdpAutoConnect.
-  """
+  use Application
+  import Supervisor.Spec, warn: false
 
-  @doc """
-  Hello world.
+  def start(_type, _args) do
+    Nerves.SSDPServer.publish(Node.self, service_name)
+    :inet_db.set_lookup([:file, :dns]) # prefer host entries to DNS lookup
 
-  ## Examples
+    opts = [strategy: :one_for_one, name: SsdpAutoConnect.Supervisor]
+    children = [worker(SsdpAutoConnect.Connector, [])]
+    
+    Supervisor.start_link(children, opts)
+  end
 
-      iex> SsdpAutoConnect.hello
-      :world
+  def discovery_interval do
+    Application.get_env(:ssdp_auto_connect, :discovery_interval, 30_000)
+  end
 
-  """
-  def hello do
-    :world
+  def service_name do
+    Application.get_env(:ssdp_auto_connect, :service_name, "ssdp_auto_connect._tcp")
   end
 end
