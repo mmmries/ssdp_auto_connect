@@ -9,11 +9,8 @@ defmodule SsdpAutoConnect.Mixfile do
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps(),
-      licenses: ["MIT"],
-      maintainers: ["Michael Ries"],
-      links: %{
-        "github" => "https://github.com/mmmries/ssdp_auto_connect",
-      },
+      package: package(),
+      description: "A package to automatically discover and connect to other erlang/elixir nodes on the LAN",
     ]
   end
 
@@ -28,6 +25,17 @@ defmodule SsdpAutoConnect.Mixfile do
     [
       {:nerves_ssdp_server, "~> 0.2"},
       {:nerves_ssdp_client, "~> 0.1"},
+      {:ex_doc, "~> 0.15.0", only: :dev},
+    ]
+  end
+
+  defp package do
+    [
+      licenses: ["MIT"],
+      maintainers: ["Michael Ries"],
+      links: %{
+        "github" => "https://github.com/mmmries/ssdp_auto_connect",
+      },
     ]
   end
 end

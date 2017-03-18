@@ -3,12 +3,12 @@ defmodule SsdpAutoConnect do
   import Supervisor.Spec, warn: false
 
   def start(_type, _args) do
-    Nerves.SSDPServer.publish(Node.self, service_name)
+    Nerves.SSDPServer.publish(Node.self(), service_name())
     :inet_db.set_lookup([:file, :dns]) # prefer host entries to DNS lookup
 
     opts = [strategy: :one_for_one, name: SsdpAutoConnect.Supervisor]
     children = [worker(SsdpAutoConnect.Connector, [])]
-    
+
     Supervisor.start_link(children, opts)
   end
 
